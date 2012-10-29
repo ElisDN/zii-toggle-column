@@ -6,6 +6,9 @@ Can be used to display toggle icon in
 
 <img src="http://www.elisdn.ru/upload/images/blogs/d78330e4808678e6fa651eab24e512ec.jpg" alt="" />
 
+Readme
+------------
+
 [README RUS](http://www.elisdn.ru/blog/15/dtogglecolumn-kolonka-pereklyuchatel-dlia-cgridview)
 
 Installation
