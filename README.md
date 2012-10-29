@@ -1,4 +1,4 @@
-Toggle Icon Column for CGridView
+ï»¿Toggle Icon Column for CGridView
 ==========================
 
 Can be used to display toggle icon in
@@ -47,7 +47,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			// title of column
 			'header'=>'P',
 			// confirmation (if needle)
-			'confirmation'=>'Èçìåíèòü ñòàòóñ ïóáëèêàöèè?',
+			'confirmation'=>'Ð˜Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ ÑÑ‚Ð°Ñ‚ÑƒÑ Ð¿ÑƒÐ±Ð»Ð¸ÐºÐ°Ñ†Ð¸Ð¸?',
 			// filter
 			'filter'=>array(1=>'Only published', 0=>'Only not published'),
 			// icon alt attribute values 
