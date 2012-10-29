@@ -47,7 +47,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			// title of column
 			'header'=>'P',
 			// confirmation (if needle)
-			'confirmation'=>'Изменить статус публикации?',
+			'confirmation'=>'A you really want to change a status?',
 			// filter
 			'filter'=>array(1=>'Only published', 0=>'Only not published'),
 			// icon alt attribute values 
