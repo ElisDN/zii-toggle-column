@@ -57,7 +57,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'titles'=>array(1=>'Published', 0=>'Not published'),
 			// link to toggle action
 			'linkUrl'=>'Yii::app()->createUrl("toggle", array("id"=>$data->id, "param"=>"public"))',
-			'htmlOptions'=>array('style'=>'width:30px;text-align:center'),
+			'htmlOptions'=>array('style'=>'width:30px'),
 		),	 
 		array(
 			'class'=>'DToggleColumn',
@@ -65,7 +65,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'header'=>'H',
 			'filter'=>array(1=>'Only in homepage', 0=>'Only not in homepage'),
 			'linkUrl'=>'Yii::app()->createUrl("toggle", array("id"=>$data->id, "param"=>"inhome"))',
-			'htmlOptions'=>array('style'=>'width:30px;text-align:center'),
+			'htmlOptions'=>array('style'=>'width:30px'),
 		),
 		array(
 			'class'=>'CButtonColumn',
