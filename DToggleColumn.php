@@ -131,17 +131,19 @@ class DToggleColumn extends CGridColumn
 		} else
 			$csrf = '';
 
-		$this->class = 'toggle_' . preg_replace('/\./', '_', $this->name);
+		$this->class = 'toggle-' . preg_replace('/\./', '_', $this->name);
 
 		$js = "
 $(document).on('click','#{$this->grid->id} a.{$this->class}', function(){
 	$confirmation
+	$('#{$this->grid->id}').addClass('{$this->grid->loadingCssClass}');
 	var th=this;
-	$.fn.yiiGridView.update('{$this->grid->id}', {
+	$.ajax({
 		type:'POST',
 		url:$(this).attr('href'),$csrf
 		success:function(data) {
-			$.fn.yiiGridView.update('{$this->grid->id}');
+	        $('#{$this->grid->id}').removeClass('{$this->grid->loadingCssClass}');
+			$(th).toggleClass('toggle-true');
 			afterAjaxUpdate(th,true,data);
 		},
 		error:function(XHR) {
@@ -152,8 +154,17 @@ $(document).on('click','#{$this->grid->id} a.{$this->class}', function(){
 });
 		";
 
+        $style="
+        .{$this->class} .icon-on, .{$this->class} .icon-off {display:block; margin:0 auto;}
+        .{$this->class} .icon-on {display:none;}
+        .{$this->class} .icon-off {display:block;}
+        .{$this->class}.toggle-true .icon-on {display:block !important;}
+        .{$this->class}.toggle-true .icon-off {display:none !important;}
+        ";
+
 		$script = CJavaScript::encode(new CJavaScriptExpression($js));
 		Yii::app()->clientScript->registerScript(__CLASS__.'#'.$this->id, $script);
+		Yii::app()->clientScript->registerCSS(__CLASS__.'#'.$this->id, $style);
 	}
 
 	/**
@@ -173,14 +184,13 @@ $(document).on('click','#{$this->grid->id} a.{$this->class}', function(){
 		else
 			$url = '';
 
-		$src = $value ?  $this->onImageUrl : $this->offImageUrl;
-		$title = $this->titles[(int)$value];
 		$iconStyle = 'width:' . $this->imageSize . 'px; height:' . $this->imageSize . 'px;';
-		$image = CHtml::image($src, $title, array('title'=>$title, 'style'=>$iconStyle));
+		$onImage = CHtml::image($this->onImageUrl, $this->titles[1], array('title'=>$this->titles[1], 'style'=>$iconStyle, 'class'=>'icon-on'));
+		$offImage = CHtml::image($this->offImageUrl, $this->titles[0], array('title'=>$this->titles[0], 'style'=>$iconStyle, 'class'=>'icon-off'));
 
 		if (!empty($url))
-			echo CHtml::link($image, $url, array('class'=>'toggle ' . $this->class, 'title'=>$title));
+			echo CHtml::link($onImage . $offImage, $url, array('class'=>'toggle-link ' . $this->class . ($value ? ' toggle-true' : '')));
 		else
-			echo $image;
+			echo $value ? $onImage : $offImage;
 	}
 }
