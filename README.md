@@ -109,7 +109,7 @@ class PostController extends Controller
 			throw new CHttpException(400, 'Bad request');
 	 
 		$model = $this->loadModel($id);
-		$model->$attribute = !$model->$attribute;
+		$model->$attribute = $model->$attribute ? 0 : 1;
 		$model->save();
  
 		if (!Yii::app()->request->isAjaxRequest)
