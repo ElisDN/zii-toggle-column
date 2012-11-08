@@ -147,7 +147,8 @@ $(document).on('click','#{$this->grid->id} a.{$this->class}', function(){
 			afterAjaxUpdate(th,true,data);
 		},
 		error:function(XHR) {
-			afterAjaxUpdate(th,false,XHR);
+			$('#{$this->grid->id}').removeClass('{$this->grid->loadingCssClass}');
+			alert(XHR.responseText);
 		}
 	});
 	return false;
