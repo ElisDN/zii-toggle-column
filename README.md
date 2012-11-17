@@ -56,7 +56,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			// icon alt attribute values 
 			'titles'=>array(1=>'Published', 0=>'Not published'),
 			// link to toggle action
-			'linkUrl'=>'Yii::app()->createUrl("toggle", array("id"=>$data->id, "param"=>"public"))',
+			'linkUrl'=>'Yii::app()->controller->createUrl("toggle", array("id"=>$data->id, "param"=>"public"))',
 			'htmlOptions'=>array('style'=>'width:30px'),
 		),	 
 		array(
@@ -64,7 +64,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'name'=>'inhome',
 			'header'=>'H',
 			'filter'=>array(1=>'Only in homepage', 0=>'Only not in homepage'),
-			'linkUrl'=>'Yii::app()->createUrl("toggle", array("id"=>$data->id, "param"=>"inhome"))',
+			'linkUrl'=>'Yii::app()->controller->createUrl("toggle", array("id"=>$data->id, "param"=>"inhome"))',
 			'htmlOptions'=>array('style'=>'width:30px'),
 		),
 		array(
