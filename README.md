@@ -35,14 +35,16 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'columns'=>array(
 		'date',
 		'title', 
-		// icon
+		// icon without link
 		array(
 			'class'=>'DToggleColumn',
 			'name'=>'important',
-			'onImageUrl' => Yii::app()->request->baseUrl . '/images/important.png',
-			'offImageUrl' => Yii::app()->request->baseUrl . '/images/spacer.gif',
+			'onImageUrl'=>Yii::app()->request->baseUrl . '/images/important.png',
+			'offImageUrl'=>Yii::app()->request->baseUrl . '/images/spacer.gif',
+            // remove default link
+            'linkUrl'=>false;
 		),
-		// icon with ajax toggle link
+		// icon with ajax degault toggle link to toggleAction($id, $attribute) action of current controller
 		array(
 			'class'=>'DToggleColumn',
 			// model attribute
@@ -55,16 +57,16 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'filter'=>array(1=>'Only published', 0=>'Only not published'),
 			// icon alt attribute values 
 			'titles'=>array(1=>'Published', 0=>'Not published'),
-			// link to toggle action
-			'linkUrl'=>'Yii::app()->controller->createUrl("toggle", array("id"=>$data->id, "param"=>"public"))',
+			// style
 			'htmlOptions'=>array('style'=>'width:30px'),
-		),	 
+		),
+        // icon with custom link
 		array(
 			'class'=>'DToggleColumn',
 			'name'=>'inhome',
 			'header'=>'H',
 			'filter'=>array(1=>'Only in homepage', 0=>'Only not in homepage'),
-			'linkUrl'=>'Yii::app()->controller->createUrl("toggle", array("id"=>$data->id, "param"=>"inhome"))',
+			'linkUrl'=>'Yii::app()->controller->createUrl("customToggle", array("id"=>$data->id, "attribute"=>"inhome"))',
 			'htmlOptions'=>array('style'=>'width:30px'),
 		),
 		array(
