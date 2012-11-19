@@ -73,8 +73,7 @@ class DToggleColumn extends CGridColumn
 		if (empty($this->name) && empty($this->value))
 			throw new CException('Either "name" or "value" must be specified for DToggleColumn.');
 
-		if (!empty($this->linkUrl))
-			$this->registerClientScript();
+        $this->registerClientScript();
 	}
 
 	/**
@@ -147,8 +146,8 @@ $(document).on('click','#{$this->grid->id} a.{$this->class}', function(){
 			afterAjaxUpdate(th,true,data);
 		},
 		error:function(XHR) {
-			$('#{$this->grid->id}').removeClass('{$this->grid->loadingCssClass}');
-			alert(XHR.responseText);
+	        $('#{$this->grid->id}').removeClass('{$this->grid->loadingCssClass}');
+		    alert(XHR.responseText);
 		}
 	});
 	return false;
@@ -182,7 +181,9 @@ $(document).on('click','#{$this->grid->id} a.{$this->class}', function(){
 
 		if(!empty($this->linkUrl))
 			$url = $this->evaluateExpression($this->linkUrl,array('data'=>$data,'row'=>$row));
-		else
+		elseif ($this->linkUrl !== false)
+            $url = Yii::app()->controller->createUrl('update',array('id'=>$data->primaryKey, 'param'=>$this->name));
+        else
 			$url = '';
 
 		$iconStyle = 'width:' . $this->imageSize . 'px; height:' . $this->imageSize . 'px;';
