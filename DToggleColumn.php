@@ -182,7 +182,7 @@ $(document).on('click','#{$this->grid->id} a.{$this->class}', function(){
 		if(!empty($this->linkUrl))
 			$url = $this->evaluateExpression($this->linkUrl,array('data'=>$data,'row'=>$row));
 		elseif ($this->linkUrl !== false)
-            $url = Yii::app()->controller->createUrl('update',array('id'=>$data->primaryKey, 'param'=>$this->name));
+            $url = Yii::app()->controller->createUrl('update',array('id'=>$data->primaryKey, 'attribute'=>$this->name));
         else
 			$url = '';
 
