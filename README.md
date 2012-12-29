@@ -40,7 +40,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'class'=>'DToggleColumn',
 			'name'=>'important',
 			'onImageUrl'=>Yii::app()->request->baseUrl . '/images/important.png',
-			'offImageUrl'=>Yii::app()->request->baseUrl . '/images/spacer.gif',
+			'visible'=>$data->important',
             // remove default link
             'linkUrl'=>false;
 		),
