@@ -48,6 +48,10 @@ class DToggleColumn extends CGridColumn
 	 * @var mixed the HTML code representing a filter input.
 	 */
 	public $filter;
+    /**
+     * @var boolean whether this column is visible. Defaults to true.
+     */
+    public $visible = true;
 
 	/**
 	 * @var string stores CSS class name for link
@@ -174,25 +178,35 @@ $(document).on('click','#{$this->grid->id} a.{$this->class}', function(){
 	 */
 	protected function renderDataCellContent($row,$data)
 	{
-		if(!empty($this->value))
-			$value = $this->evaluateExpression($this->value,array('data'=>$data,'row'=>$row));
-		elseif(!empty($this->name))
-			$value = CHtml::value($data, $this->name);
-
-		if(!empty($this->linkUrl))
-			$url = $this->evaluateExpression($this->linkUrl,array('data'=>$data,'row'=>$row));
-		elseif ($this->linkUrl !== false)
-            $url = Yii::app()->controller->createUrl('toggle',array('id'=>$data->primaryKey, 'attribute'=>$this->name));
+        if(!empty($this->visible) && !is_bool($this->visible))
+            $visible = $this->evaluateExpression($this->visible,array('data'=>$data,'row'=>$row));
         else
-			$url = '';
+            $visible = $this->visible;
 
-		$iconStyle = 'width:' . $this->imageSize . 'px; height:' . $this->imageSize . 'px;';
-		$onImage = CHtml::image($this->onImageUrl, $this->titles[1], array('title'=>$this->titles[1], 'style'=>$iconStyle, 'class'=>'icon-on'));
-		$offImage = CHtml::image($this->offImageUrl, $this->titles[0], array('title'=>$this->titles[0], 'style'=>$iconStyle, 'class'=>'icon-off'));
+        if ($visible)
+        {
+            if(!empty($this->value))
+                $value = $this->evaluateExpression($this->value,array('data'=>$data,'row'=>$row));
+            elseif(!empty($this->name))
+                $value = CHtml::value($data, $this->name);
 
-		if (!empty($url))
-			echo CHtml::link($onImage . $offImage, $url, array('class'=>'toggle-link ' . $this->class . ($value ? ' toggle-true' : '')));
-		else
-			echo $value ? $onImage : $offImage;
+            if(!empty($this->linkUrl))
+                $url = $this->evaluateExpression($this->linkUrl,array('data'=>$data,'row'=>$row));
+            elseif ($this->linkUrl !== false)
+                $url = Yii::app()->controller->createUrl('toggle',array('id'=>$data->primaryKey, 'attribute'=>$this->name));
+            else
+                $url = '';
+
+            $iconStyle = 'width:' . $this->imageSize . 'px; height:' . $this->imageSize . 'px;';
+            $onImage = CHtml::image($this->onImageUrl, $this->titles[1], array('title'=>$this->titles[1], 'style'=>$iconStyle, 'class'=>'icon-on'));
+            $offImage = CHtml::image($this->offImageUrl, $this->titles[0], array('title'=>$this->titles[0], 'style'=>$iconStyle, 'class'=>'icon-off'));
+
+            if (!empty($url))
+                echo CHtml::link($onImage . $offImage, $url, array('class'=>'toggle-link ' . $this->class . ($value ? ' toggle-true' : '')));
+            else
+                echo $value ? $onImage : $offImage;
+        }
+        else
+            echo $this->grid->nullDisplay;
 	}
 }
