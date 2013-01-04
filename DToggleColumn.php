@@ -134,7 +134,7 @@ class DToggleColumn extends CGridColumn
         } else
             $csrf = '';
 
-        $this->class = 'toggle-' . preg_replace('/\./', '_', $this->name);
+        $this->class = 'toggle-property-' . rand(1000, 9999);
 
         $js = "
 $(document).on('click','#{$this->grid->id} a.{$this->class}', function(){
