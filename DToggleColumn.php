@@ -134,7 +134,7 @@ class DToggleColumn extends CGridColumn
         } else
             $csrf = '';
 
-        $this->class = 'toggle-property-' . rand(1000, 9999);
+        $this->class = 'toggle-property-p' . rand(1000, 9999);
 
         $js = "
 $(document).on('click','#{$this->grid->id} a.{$this->class}', function(){
@@ -158,16 +158,17 @@ $(document).on('click','#{$this->grid->id} a.{$this->class}', function(){
 });
         ";
 
-        $style="
-        .{$this->class} .icon-on, .{$this->class} .icon-off {display:block; margin:0 auto;}
-        .{$this->class} .icon-on {display:none;}
-        .{$this->class} .icon-off {display:block;}
-        .{$this->class}.toggle-true .icon-on {display:block !important;}
-        .{$this->class}.toggle-true .icon-off {display:none !important;}
-        ";
-
         $script = CJavaScript::encode(new CJavaScriptExpression($js));
         Yii::app()->clientScript->registerScript(__CLASS__.'#'.$this->id, $script);
+
+        $style = "
+        .toggle-link .icon-on, .toggle-link .icon-off {display:block; margin:0 auto;}
+        .toggle-link .icon-on {display:none;}
+        .toggle-link .icon-off {display:block;}
+        .toggle-link.toggle-true .icon-on {display:block !important;}
+        .toggle-link.toggle-true .icon-off {display:none !important;}
+        ";
+
         Yii::app()->clientScript->registerCSS(__CLASS__.'#'.$this->id, $style);
     }
 
