@@ -63,6 +63,8 @@ class DToggleColumn extends CGridColumn
      */
     protected $class;
 
+    private static $increment_id = 0;
+
     /**
      * @throws CException
      */
@@ -139,7 +141,7 @@ class DToggleColumn extends CGridColumn
         } else
             $csrf = '';
 
-        $this->class = 'toggle-property-p' . rand(1000, 9999);
+        $this->class = 'toggle-property-p' . ++self::$increment_id;
 
         $js = "
 $(document).on('click','#{$this->grid->id} a.{$this->class}', function(){
